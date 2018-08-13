@@ -11,6 +11,28 @@ const inputWidth = $('#inputWidth');
 const pixelCanvas = $('#pixelCanvas');
 
 // When size is submitted by the user, call makeGrid()
+sizePicker.submit(function(event) {
+    // Draw drid based on input values
+    makeGrid(inputWidth.val(), inputHeight.val());
+    // prevent page refresh on submit
+    event.preventDefault();
+  });
+
+// When a canvas cell is left-clicked fill the corresponding colorPicker color in it, if right clicked then unfill the color
+pixelCanvas.on('mousedown','td',function (e){
+    if (e.which == 1) {
+     // this is left click event.
+      $(this).css('background-color',colorPicker.val());
+     }
+     if (e.which == 3) {
+     // this is right click event.
+      $(this).css('background-color',"#FFFFFF");   
+     }
+ });
+
+ pixelCanvas.on("contextmenu","td",function(){
+          return false;
+       }); 
 
 //makeGrid() function
 function makeGrid(w,h) {
